@@ -8,6 +8,8 @@ from google.cloud import storage
 import tempfile
 import base64
 import json
+from uagents.setup import fund_agent_if_low
+
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"amazing-city-414621-61f39de69c52.json"
 
@@ -21,26 +23,37 @@ class Message(Model):
     # image_data_word: List[bytes]
 
 
-def generate_seed():
-    mnemo = Mnemonic("english")
-    words = mnemo.generate(strength=256)
-    seed = mnemo.to_seed(words, passphrase="TreeHacks2024")
-    return seed
+# def generate_seed():
+#     mnemo = Mnemonic("english")
+#     words = mnemo.generate(strength=256)
+#     seed = mnemo.to_seed(words, passphrase="TreeHacks2024")
+#     return seed
 
 
 # mnemonic = generate_seed()
 # print(mnemonic)
 # Look in mnemonic_seed text file
 
-mnemonic = b'\x8b\xa9\x88pO7\x96\xca\x13\x03\x0fSK\x16H<\xd6y+K\xbf\ty\x16\xc7\xeca\x84\x94\x182\x15*\xdb\x04O\x97\xfaO\xf2\xa7\x99v\xba\xf3\xe8B\xc9>1\x87\x8e\xe46d\xd5\x11RH\xad\xe3si\xf9'
-mnemonic = str(mnemonic)
+# mnemonic = b'\x8b\xa9\x88pO7\x96\xca\x13\x03\x0fSK\x16H<\xd6y+K\xbf\ty\x16\xc7\xeca\x84\x94\x182\x15*\xdb\x04O\x97\xfaO\xf2\xa7\x99v\xba\xf3\xe8B\xc9>1\x87\x8e\xe46d\xd5\x11RH\xad\xe3si\xf9'
+# mnemonic = str(mnemonic)
 # trigger_agent = Agent(name="AI Pipeline Initiation", seed=str(mnemonic))
 
 # print(f"Your agent's address is: {Agent(seed=str(mnemonic)).address}")
-agent_mailbox_key = "aad91229-0694-4cef-934f-8b77757d384e"
+# agent_mailbox_key = "aad91229-0694-4cef-934f-8b77757d384e"
 
-trigger_agent = Agent(name="AI Pipeline Initiation", seed=str(mnemonic),
-                      mailbox=f"{agent_mailbox_key}@https://agentverse.ai", )
+# trigger_agent = Agent(name="AI Pipeline Initiation", seed=str(mnemonic),
+#                       mailbox=f"{agent_mailbox_key}@https://agentverse.ai", )
+
+PROBLEM_SEED = "problem really secret phrase"
+
+trigger_agent = Agent(
+    name="trigger_agent",
+    port=8004,
+    seed=PROBLEM_SEED,
+    endpoint=["http://127.0.0.1:8004/submit"]
+)
+
+fund_agent_if_low(trigger_agent.wallet.address())
 
 print(trigger_agent.address)
 reciever_address = "agent1qwez6cez0d7vycves9cm6w9dw9ecgjy3xwmrdalgrpc3cgg7pya05358m0e"
