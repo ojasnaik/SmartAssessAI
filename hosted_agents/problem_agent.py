@@ -4,7 +4,11 @@ import json
 import requests
 from uagents import Agent, Context, Protocol
 from uagents.setup import fund_agent_if_low
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+open_ai_key = os.getenv("OPENAI_KEY")
 
 # RUN ON AGENTVERSE
 # MATH PROCESSING AGENT IN CHARGE OF GRADING PROVIDED SOLUTION AND PROBLEM TO ASSIGNMENT
@@ -16,7 +20,7 @@ OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 MODEL_ENGINE = "gpt-4"
 HEADERS = {
     "Content-Type": "application/json",
-    "Authorization": f"Bearer {""}"
+    "Authorization": f"Bearer {open_ai_key}"
 }
 
 PROBLEM_SEED = "problem really secret phrase"

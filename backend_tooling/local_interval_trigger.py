@@ -42,6 +42,7 @@ agent_mailbox_key = "aad91229-0694-4cef-934f-8b77757d384e"
 trigger_agent = Agent(name="AI Pipeline Initiation", seed=str(mnemonic),
                       mailbox=f"{agent_mailbox_key}@https://agentverse.ai", )
 
+print(trigger_agent.address)
 reciever_address = "agent1qwez6cez0d7vycves9cm6w9dw9ecgjy3xwmrdalgrpc3cgg7pya05358m0e"
 
 
@@ -113,24 +114,25 @@ def process_word_from_gcs_and_extract_text_images(bucket_name, source_blob_name)
 
 
 
-RECEIVER_ADDRESS = "agent1qwez6cez0d7vycves9cm6w9dw9ecgjy3xwmrdalgrpc3cgg7pya05358m0e"
+# RECEIVER_ADDRESS = "agent1qwez6cez0d7vycves9cm6w9dw9ecgjy3xwmrdalgrpc3cgg7pya05358m0e"
+RECEIVER_ADDRESS = "agent1q0tfrr9kp7ejqf4cpdawgmusva6sdqvtg5cdg5l3htnsx5985xps789fqhr"
 
 
 @trigger_agent.on_interval(period=60)
 async def data_pipelining(ctx: Context):
     ctx.logger.info(f'Sending Data')
 
-    bucket_name = "test_data_bucket_ocr"
+    bucket_name = "smartassess-bucket-temp"
     source_blob_name = r"pdf/61 hw2.pdf"
     pdf_text, pdf_images_list = read_pdf_from_gcs(bucket_name, source_blob_name)
 
 
-    bucket_name = "test_data_bucket_ocr"
+    bucket_name = "smartassess-bucket-temp"
     source_blob_name = "word/Report.docx"
     word_text, word_images_list = process_word_from_gcs_and_extract_text_images(bucket_name, source_blob_name)
 
-    bucket_name = "test_data_bucket_ocr"
-    source_blob_name = r"rubrics/Homework2-solutions (1).pdf"
+    bucket_name = "smartassess-bucket-temp"
+    source_blob_name = r"rubrics/hw2_ans.pdf"
     rubrics_text, rubrics_pdf_images_list = read_pdf_from_gcs(bucket_name, source_blob_name)
 
     await ctx.send(RECEIVER_ADDRESS, Message(message="HW #2 Grading Word + PDF", text_data_pdf=pdf_text,
@@ -166,7 +168,7 @@ def dataall_to_dict(data_all):
 @trigger_agent.on_message(model=DataAll)
 async def handle_data(ctx: Context, sender: str, data: DataAll):
     ctx.logger.info(f"Got response from AI model agent: {data}")
-
+    print("Sender: " + sender)
     # Convert DataAll to a list of dicts
     grades = dataall_to_dict(data)  # Adjust this line based on the actual structure of DataAll
 
@@ -182,7 +184,7 @@ async def handle_data(ctx: Context, sender: str, data: DataAll):
 
     try:
         storage_client = storage.Client.from_service_account_json('amazing-city-414621-61f39de69c52.json')
-        bucket = storage_client.bucket("test_data_bucket_ocr")
+        bucket = storage_client.bucket("smartassess-bucket-temp")
 
         blob_name = f"score/hw1/{filename}"  # Corrected blob name
         blob = bucket.blob(blob_name)

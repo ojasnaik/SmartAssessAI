@@ -19,7 +19,7 @@ class PDFViewer(rx.Component):
             width="80em",
         )
     
-def download_and_load_json(bucket_name="test_data_bucket_ocr", source_blob_name="score/hw1/grades_hw1.json"):
+def download_and_load_json(bucket_name="smartassess-bucket-temp", source_blob_name="score/hw1/grades_hw1.json"):
     """
     Downloads a blob from the bucket, loads the JSON content, and deletes the file.
 

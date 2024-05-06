@@ -15,9 +15,9 @@ SUBMISSION_SEED = "submission really secret phrase"
 
 submission_agent_client = Agent(
     name="submission_agent",
-    port=8005,
+    port=8006,
     seed=SUBMISSION_SEED,
-    endpoint=["http://127.0.0.1:8005/submit"]
+    endpoint=["http://127.0.0.1:8006/submit"]
 )
 
 
@@ -37,7 +37,7 @@ class DataAll(Model):
 @submission_agent_client.on_message(model=DataAll)
 async def handle_data(ctx: Context, sender: str, data: DataAll):
     ctx.logger.info(f"Got response from AI model agent: {data}")
-    
+    print("Sender: " + sender)
     await ctx.send(LOCAL_AGENT_ADDRESS, data)
 
     

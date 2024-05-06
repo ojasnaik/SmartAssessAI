@@ -3,25 +3,29 @@ from typing import List
 import json
 import requests
 from uagents import Agent, Context, Protocol
+from dotenv import load_dotenv
+import os
 from uagents.setup import fund_agent_if_low
 
 # RUN ON AGENTVERSE
 # PREPROCESSING AGENT TO PARSE PAGE OF PROBLEMS INTO SEPARATE PROBLEMS
 
+load_dotenv()
+open_ai_key = os.getenv("OPENAI_KEY")
 
     # raise Exception("You need to provide an API key for OPEN AI to use this example")
 OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 MODEL_ENGINE = "gpt-4"
 HEADERS = {
     "Content-Type": "application/json",
-    "Authorization": f"Bearer {''}"
+    "Authorization": f"Bearer {open_ai_key}"
 }
 
 PARSING_SEED = "parsing really secret phrase"
 
 parsing_agent_client = Agent(
     name="parsing_agent",
-    port=8004,
+    port=8005,
     seed=PARSING_SEED,
     endpoint=["http://127.0.0.1:8005/submit"]
 )
@@ -126,6 +130,7 @@ def get_data(ctx: Context, solution, homework):
 # Message handler for data requests sent to this agent
 @parsing_agent_client.on_message(model=Request)
 async def handle_request(ctx: Context, sender: str, request: Request):
+    print("Sender: " + sender)
     ctx.logger.info(f"Got request from")
     response = get_data(ctx, request.solution, request.homework)
     sender = "agent1qdr7vvlmy42ngfxv2gac0zmqsjmkjyc38g0e493q7nc7f669an5w75lkswt"
