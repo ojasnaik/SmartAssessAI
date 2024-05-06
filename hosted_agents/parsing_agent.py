@@ -14,7 +14,7 @@ OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 MODEL_ENGINE = "gpt-4"
 HEADERS = {
     "Content-Type": "application/json",
-    "Authorization": f"Bearer {""}"
+    "Authorization": f"Bearer {''}"
 }
 
 PARSING_SEED = "parsing really secret phrase"

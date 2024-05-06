@@ -1,4 +1,8 @@
+*.db
+*.py[cod]
+.web
 /Pipfile
-/test_additional_tooling/amazing-city-414621-61f39de69c52.json
+/SmartAssessAI/pages/amazing-city-414621-61f39de69c52.json
 /backend_tooling/amazing-city-414621-61f39de69c52.json
-/frontend/pages/amazing-city-414621-61f39de69c52.json
+/test_additional_tooling/amazing-city-414621-61f39de69c52.json
+__pycache__/

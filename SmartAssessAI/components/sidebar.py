@@ -1,6 +1,6 @@
 """Sidebar component for the app."""
 
-from frontend import styles
+from SmartAssessAI import styles
 
 import reflex as rx
 

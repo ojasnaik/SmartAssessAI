@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from frontend import styles
-# from gradeAI.components.sidebar import sidebar
+from SmartAssessAI import styles
+# from SmartAssessAI.components.sidebar import sidebar
 from typing import Callable
 
 import reflex as rx
@@ -17,7 +17,7 @@ default_meta = [
 ]
 
 def logo() -> rx.Component:
-    return rx.image(src="gradeAILogo.png", width="6.5em", height="2em", margin_left="12em"),
+    return rx.image(src="SmartAssessAILogo.png", width="6.5em", height="2em", margin_left="12em"),
 
 def navbar():
     return rx.hstack(

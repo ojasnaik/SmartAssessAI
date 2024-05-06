@@ -1,4 +1,4 @@
-from frontend.templates import template
+from SmartAssessAI.templates import template
 import os
 from pathlib import Path
 from typing import List
@@ -35,7 +35,7 @@ class UploadStateModal(rx.State):
             # print(22, outfile);
     async def handle_upload(self, files: List[rx.UploadFile]):
         """Handle the file upload asynchronously."""
-        storage_client = storage.Client.from_service_account_json("gradeAI/pages/amazing-city-414621-61f39de69c52.json")
+        storage_client = storage.Client.from_service_account_json("SmartAssessAI/pages/amazing-city-414621-61f39de69c52.json")
         bucket = storage_client.bucket("test_data_bucket_ocr")
 
         for file in files:

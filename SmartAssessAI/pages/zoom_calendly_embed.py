@@ -1,4 +1,4 @@
-from frontend.templates import template
+from SmartAssessAI.templates import template
 import reflex as rx
 
 class CalendlyWidget(rx.Component):

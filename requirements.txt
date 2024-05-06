@@ -1,1 +1,7 @@
 reflex==0.4.0
+openai==0.28.0
+uagents~=0.11.1
+langchain
+requests~=2.31.0
+google-cloud
+google-cloud-storage

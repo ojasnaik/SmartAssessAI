@@ -1,4 +1,4 @@
-from frontend.templates import template
+from SmartAssessAI.templates import template
 import os
 from pathlib import Path
 from typing import List
@@ -27,7 +27,7 @@ def download_and_load_json(bucket_name="test_data_bucket_ocr", source_blob_name=
     :param source_blob_name: str. Name of the blob to download.
     :return: The loaded JSON object.
     """
-    storage_client = storage.Client.from_service_account_json('gradeAI/pages/amazing-city-414621-61f39de69c52.json')
+    storage_client = storage.Client.from_service_account_json('SmartAssessAI/pages/amazing-city-414621-61f39de69c52.json')
     temp_file_name = f"temp_{source_blob_name.replace('/', '_')}"
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(source_blob_name)

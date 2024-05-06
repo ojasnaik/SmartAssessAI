@@ -1,9 +1,9 @@
 """Welcome to Reflex!."""
 
-from frontend import styles
+from SmartAssessAI import styles
 
 # Import all the pages.
-from frontend.pages import *
+from SmartAssessAI.pages import *
 
 import reflex as rx
 

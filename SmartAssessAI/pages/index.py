@@ -1,7 +1,7 @@
 """The home page of the app."""
 
-from frontend import styles
-from frontend.templates import template
+from SmartAssessAI import styles
+from SmartAssessAI.templates import template
 from typing import List
 
 import reflex as rx

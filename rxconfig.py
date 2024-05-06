@@ -1,5 +1,5 @@
 import reflex as rx
 
 config = rx.Config(
-    app_name="gradeAI",
+    app_name="SmartAssessAI",
 )
